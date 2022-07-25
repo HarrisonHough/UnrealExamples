@@ -6,7 +6,7 @@
 ULaneChange::ULaneChange()
 {
 	PrimaryComponentTick.bCanEverTick = false;
-	LaneY = {
+	LaneYArray = {
 		-325.0f,
 		0.0f,
 		323.0f
@@ -21,8 +21,8 @@ void ULaneChange::Change(const int Direction)
 void ULaneChange::MoveActor(AActor* TargetActor, const float Progress)
 {
 	const FVector Location = TargetActor->GetRootComponent()->GetComponentLocation();
-	const float StartPositionY = LaneY[Lane];
-	const float TargetPositionY = LaneY[TargetLane];
+	const float StartPositionY = LaneYArray[Lane];
+	const float TargetPositionY = LaneYArray[TargetLane];
 	const float NewPositionY = FMath::Lerp(StartPositionY, TargetPositionY,Progress);
 	TargetActor->SetActorLocation(FVector (Location.X,NewPositionY,Location.Z));
 }

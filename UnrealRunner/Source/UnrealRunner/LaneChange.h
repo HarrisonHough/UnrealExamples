@@ -33,6 +33,6 @@ public:
 	void Finished();
 	
 	UPROPERTY(BlueprintReadWrite, Category=LaneChange)
-	TArray<float> LaneY;
+	TArray<float> LaneYArray;
 		
 };
