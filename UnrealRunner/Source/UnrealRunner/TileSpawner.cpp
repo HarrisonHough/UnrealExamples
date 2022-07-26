@@ -2,38 +2,36 @@
 
 
 #include "TileSpawner.h"
+#include "TileActor.h"
 
-// Sets default values for this component's properties
-UTileSpawner::UTileSpawner()
+void ATileSpawner::SpawnRandomTile()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	if(TileArray.Num() < 1) return;
+	SpawnTile(TileArray[FMath::RandRange(0, TileArray.Num())]);
 }
 
-
-// Called when the game starts
-void UTileSpawner::BeginPlay()
+ATileActor* ATileSpawner::GetLastTile() const
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	return LastTileSpawned;
 }
 
-
-// Called every frame
-void UTileSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void ATileSpawner::SpawnTile(const ATileActor* TileActor)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+	if(LastTileSpawned == nullptr)
+	{
+		const FVector Position = FVector(0,0,0);
+		const FRotator Rotation = FRotator(0,0,0);
+		LastTileSpawned = GetWorld()->SpawnActor<ATileActor>(TileActor->GetClass(), Position, Rotation);
+		return;
+	}
+	LastTileSpawned = GetWorld()->SpawnActor<ATileActor>(TileActor->GetClass(), LastTileSpawned->GetActorTransform());
 }
 
-void UTileSpawner::SpawnNewTile()
+void ATileSpawner::SpawnTiles(const int NumberToSpawn)
 {
-	
+	if(NumberToSpawn < 1) return;
+	for(int i = 0; i < NumberToSpawn; i++)
+	{
+		SpawnRandomTile();
+	}
 }
-

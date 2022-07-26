@@ -3,26 +3,25 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "SpawnerBase.h"
 #include "TileSpawner.generated.h"
 
-
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class UNREALRUNNER_API UTileSpawner : public UActorComponent
+/**
+ * 
+ */
+UCLASS()
+class UNREALRUNNER_API ATileSpawner final : public ASpawnerBase
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	UTileSpawner();
-
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	static void SpawnNewTile();
+public:
+	void SpawnTiles(const int NumberToSpawn);
+	void SpawnTile(const class ATileActor* TileActor);
+	void SpawnRandomTile();
+	ATileActor* GetLastTile() const;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=TileSpawner)
+	TArray<ATileActor*> TileArray;
+private:
+	ATileActor* LastTileSpawned;
 };

@@ -11,5 +11,5 @@ AUnrealRunnerGameMode::AUnrealRunnerGameMode()
 	if (PlayerPawnBPClass.Class != NULL)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
+	}	
 }
