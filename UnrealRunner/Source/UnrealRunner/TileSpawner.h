@@ -15,13 +15,17 @@ class UNREALRUNNER_API ATileSpawner final : public ASpawnerBase
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintCallable, Category=TileSpawner)
 	void SpawnTiles(const int NumberToSpawn);
+	UFUNCTION(BlueprintCallable, Category=TileSpawner)
 	void SpawnTile(const class ATileActor* TileActor);
+	UFUNCTION(BlueprintCallable, Category=TileSpawner)
 	void SpawnRandomTile();
+	UFUNCTION(BlueprintCallable, Category=TileSpawner)
 	ATileActor* GetLastTile() const;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=TileSpawner)
-	TArray<ATileActor*> TileArray;
+	UPROPERTY(EditDefaultsOnly, Category=TileSpawner)
+	TArray<ATileActor*> TileBlueprintArray;
 private:
 	ATileActor* LastTileSpawned;
 };

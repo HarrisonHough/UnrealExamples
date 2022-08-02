@@ -6,8 +6,8 @@
 
 void ATileSpawner::SpawnRandomTile()
 {
-	if(TileArray.Num() < 1) return;
-	SpawnTile(TileArray[FMath::RandRange(0, TileArray.Num())]);
+	if(TileBlueprintArray.Num() < 1) return;
+	SpawnTile(TileBlueprintArray[FMath::RandRange(0, TileBlueprintArray.Num()-1)]);
 }
 
 ATileActor* ATileSpawner::GetLastTile() const
@@ -15,7 +15,7 @@ ATileActor* ATileSpawner::GetLastTile() const
 	return LastTileSpawned;
 }
 
-void ATileSpawner::SpawnTile(const ATileActor* TileActor)
+void ATileSpawner::SpawnTile(const TSubclassOf<ATileActor> TileActor)
 {
 	if(LastTileSpawned == nullptr)
 	{
