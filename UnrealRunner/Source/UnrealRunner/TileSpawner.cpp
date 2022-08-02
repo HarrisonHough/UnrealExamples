@@ -15,7 +15,7 @@ ATileActor* ATileSpawner::GetLastTile() const
 	return LastTileSpawned;
 }
 
-void ATileSpawner::SpawnTile(const TSubclassOf<ATileActor> TileActor)
+void ATileSpawner::SpawnTile(const ATileActor* TileActor)
 {
 	if(LastTileSpawned == nullptr)
 	{
