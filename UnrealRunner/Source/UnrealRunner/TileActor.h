@@ -7,7 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "TileActor.generated.h"
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FOnExitTile, const class ATileActor*, TileActor);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnExitTile, const class ATileActor*, TileActor);
 
 UCLASS()
 class UNREALRUNNER_API ATileActor : public AActor
@@ -19,7 +19,7 @@ public:
 	ATileActor();
 	
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = Tile,  meta = (AllowPrivateAccess = "true"))
-	class UBoxComponent* CollisionMesh;
+	class UBoxComponent* ExitCollisionMesh;
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = Tile,  meta = (AllowPrivateAccess = "true"))
 	USceneComponent* SceneRoot;
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = Tile, meta = (AllowPrivateAccess = "true"))
@@ -32,8 +32,9 @@ public:
 	UArrowComponent* Lane2;
 
 	UFUNCTION(BlueprintCallable)
-	FVector GetSpawnLocation() const;
+	FTransform GetSpawnTransform() const;
 
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite)
 	FOnExitTile OnExitTile;
 	
 };

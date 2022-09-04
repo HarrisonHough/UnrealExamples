@@ -12,12 +12,12 @@ ATileActor::ATileActor()
 	PrimaryActorTick.bCanEverTick = false;
 	SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	RootComponent = SceneRoot;
-	CollisionMesh = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
-	CollisionMesh->SetupAttachment(SceneRoot);
-	CollisionMesh->SetRelativeLocation(FVector(1000,0,500));
-	CollisionMesh->SetBoxExtent(FVector(32,500,1000));
-	CollisionMesh->SetCollisionResponseToAllChannels(ECR_Overlap);
-	CollisionMesh->SetGenerateOverlapEvents(true);
+	ExitCollisionMesh = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
+	ExitCollisionMesh->SetupAttachment(SceneRoot);
+	ExitCollisionMesh->SetRelativeLocation(FVector(1000,0,500));
+	ExitCollisionMesh->SetBoxExtent(FVector(32,500,1000));
+	ExitCollisionMesh->SetCollisionResponseToAllChannels(ECR_Overlap);
+	ExitCollisionMesh->SetGenerateOverlapEvents(true);
 	SpawnPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("SpawnPoint"));
 	SpawnPoint->SetupAttachment(SceneRoot);
 	SpawnPoint->SetRelativeLocation(FVector(1000,0,500));
@@ -32,7 +32,7 @@ ATileActor::ATileActor()
 	Lane2->SetRelativeLocation(FVector(0,323.0,0));
 }
 
-FVector ATileActor::GetSpawnLocation() const
+FTransform ATileActor::GetSpawnTransform() const
 {
-	return SpawnPoint->GetComponentLocation();
+	return SpawnPoint->GetComponentTransform();
 }
